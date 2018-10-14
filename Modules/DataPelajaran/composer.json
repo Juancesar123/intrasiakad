@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/datapelajaran",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\DataPelajaran\\Providers\\DataPelajaranServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\DataPelajaran\\": ""
+        }
+    }
+}

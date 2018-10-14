@@ -1,0 +1,16 @@
+{
+    "name": "Absensi",
+    "alias": "absensi",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Absensi\\Providers\\AbsensiServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

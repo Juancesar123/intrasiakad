@@ -1,0 +1,16 @@
+{
+    "name": "DataPelajaran",
+    "alias": "datapelajaran",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\DataPelajaran\\Providers\\DataPelajaranServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

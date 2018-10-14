@@ -1,0 +1,16 @@
+{
+    "name": "Datasiswa",
+    "alias": "datasiswa",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Datasiswa\\Providers\\DatasiswaServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
