@@ -1,0 +1,16 @@
+{
+    "name": "Homepage",
+    "alias": "homepage",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Homepage\\Providers\\HomepageServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
