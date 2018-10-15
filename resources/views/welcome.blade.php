@@ -79,7 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Love you
+                   Intra Training Center
                 </div>
 
                 <div class="links">
