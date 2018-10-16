@@ -3,13 +3,15 @@
 @section('content')
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>Intra</b>siakad</a>
+        <a href="javascript:void(0)"><b>Intra</b>siakad</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
 
         <form method="post" action="{{ route('login') }}">
+            @csrf
+
             <div class="form-group has-feedback @if ($errors->has('email')) has-error @endif">
                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus placeholder="Email">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
