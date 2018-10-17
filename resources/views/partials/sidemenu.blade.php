@@ -36,14 +36,14 @@
               <i class="fa fa-user"></i> <span>Data Pengajar</span>
             </a>
           </li>
+          <li>
+           <a href="">
+             <i class="fa fa-user"></i> <span>Data Peserta</span>
+           </a>
+         </li>
            <li>
             <a href="">
               <i class="fa fa-book"></i> <span>Data Kursus</span>
-            </a>
-          </li>
-           <li>
-            <a href="">
-              <i class="fa fa-th"></i> <span>Data Peserta</span>
             </a>
           </li>
           <li>
