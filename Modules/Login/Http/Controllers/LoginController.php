@@ -8,6 +8,10 @@ use Illuminate\Routing\Controller;
 
 class LoginController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('token');
+    }
     /**
      * Display a listing of the resource.
      * @return Response
@@ -33,6 +37,17 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
+      $value = session('token');
+      $headers = ['Authorize' => 'Barier '.$value];
+      $send = $client->post(env('API_URL').'/datakursus', $headers[
+        'form_params' => [
+          'username' => request()->get('email'),
+          'password' => request()->get('password'),
+        ]
+      ]);
+      $data = $res->getContents();
+      $request->session()->put('token', $data);
+      return redirect('home');
     }
 
     /**
