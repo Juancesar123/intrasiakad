@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Middleware;
-
+use URL;
 use Closure;
 
-class token
+class authlogin
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,10 @@ class token
      */
     public function handle($request, Closure $next)
     {
-        if(session('token')){
-          return $next($request);
-        }else{
-          return redirect()->route('formLogin');
-        }
+      if(session('token')){
+        return redirect('homepage');
+      }else{
+        return $next($request);
+      }
     }
 }

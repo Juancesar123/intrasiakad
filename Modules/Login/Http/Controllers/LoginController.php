@@ -6,6 +6,7 @@ namespace Modules\Login\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 
 class LoginController extends Controller
@@ -36,20 +37,19 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-      // dd($request->all());
      $client = new Client();
-      $value = session('token');
-      $headers = ['Authorize' => 'Barier '.$value];
-      $send = $client->post(env('API_URL').'/datakursus', $headers,[
+      // $headers = ['Authorization' => 'Bearer '];
+      // dd($headers);
+      $send = $client->post(env('API_URL').'/authentication',[
         'form_params' => [
-          'username' => request()->get('email'),
-          'password' => request()->get('password'),
+          'strategy' => 'local',
+          'email' => $request->email,
+          'password' => $request->password,
         ]
       ]);
-      dd($send);
-      $data = $res->getContents();
+      $data = $send->getBody()->getContents();
       $request->session()->put('token', $data);
-      return redirect('home');
+      return redirect('homepage');
     }
 
     /**
@@ -85,5 +85,37 @@ class LoginController extends Controller
      */
     public function destroy()
     {
+    }
+
+    public function register()
+    {
+      return view('login::register');
+    }
+
+    public function authregister(Request $request)
+    {
+
+      $validateRegister = $request->validate([
+        'email' => 'required',
+        'password' => 'required',
+      ]);
+
+        $client = new Client;
+        $res = $client->request('POST',env('API_URL').'/users',[
+           'form_params' => [
+             'email' => $request->email,
+             'password' => $request->password,
+           ]
+         ]);
+
+       // $data = $res->getBody()->getContents();
+       // $request->session()->put('token', $data);
+       return redirect()->route('formLogin');
+    }
+
+    public function logout()
+    {
+      session()->flush();
+      return redirect()->route('formLogin');
     }
 }

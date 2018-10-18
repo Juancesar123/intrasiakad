@@ -32,10 +32,10 @@
         </div>
         <!-- /.col -->
       </div>
-			@csrf 
+			@csrf
     </form>
     <a href="#">I forgot my password</a><br>
-    <a href="register.html" class="text-center">Register a new membership</a>
+    <a href="{{ route('formRegister') }}" class="text-center">Register a new membership</a>
   </div>
   <!-- /.login-box-body -->
 </div>
