@@ -10,10 +10,7 @@ use GuzzleHttp\Client;
 
 class LoginController extends Controller
 {
-    // public function __construct()
-    // {
-    //   $this->middleware('token');
-    // }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -39,6 +36,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
+      // dd($request->all());
      $client = new Client();
       $value = session('token');
       $headers = ['Authorize' => 'Barier '.$value];
@@ -48,6 +46,7 @@ class LoginController extends Controller
           'password' => request()->get('password'),
         ]
       ]);
+      dd($send);
       $data = $res->getContents();
       $request->session()->put('token', $data);
       return redirect('home');
