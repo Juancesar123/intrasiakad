@@ -78,8 +78,7 @@ class DatakursusController extends Controller
         $client->request('DELETE', 'localhost:3030/datakursus/'.$id, [
             'headers' => [
                 'Authorization' => $headers
-                ]
-                ]);
-        dd($client);
+            ]
+        ]);
     }
 }
