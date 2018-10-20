@@ -5,6 +5,9 @@ namespace Modules\Datakursus\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 class DatakursusController extends Controller
 {
@@ -66,7 +69,17 @@ class DatakursusController extends Controller
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+        $get_token  = session()->get('token');
+        $client     = new Client();
+        $token      = json_decode($get_token);
+        $headers    = $token->accessToken;
+        $client->request('DELETE', 'localhost:3030/datakursus/'.$id, [
+            'headers' => [
+                'Authorization' => $headers
+                ]
+                ]);
+        dd($client);
     }
 }
