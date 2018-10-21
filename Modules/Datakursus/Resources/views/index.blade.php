@@ -1,9 +1,21 @@
 @extends('datakursus::layouts.master')
 
 @section('content')
-    <h1>Hello World</h1>
+<table border="1">
+<tr>
+    <th>No</th>
+    <th>Name Kursus</th>
+    <th>Created Date</th>
 
-    <p>
-        This view is loaded from module: {!! config('datakursus.name') !!}
-    </p>
+</tr>
+@php $no=1 @endphp
+{{ $no++ }}
+@foreach($datakursus as $data)
+<tr>
+    <td>{{ $no++ }}</td>
+    <td>{{ $data->namakursus }}</td>
+    <td>{{ $data->created_at }}</td>
+</tr>
+@endforeach
+</table>
 @stop
