@@ -32,7 +32,7 @@
          </a>
        </li>
            <li>
-            <a href="">
+            <a href="{{ route('indexDataguru') }}">
               <i class="fa fa-user"></i> <span>Data Pengajar</span>
             </a>
           </li>
