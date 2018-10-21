@@ -6,4 +6,5 @@ Route::group(['middleware' => ['web','token'], 'prefix' => 'datakursus', 'namesp
     Route::get('/edit', 'DatakursusController@edit');
     Route::get('/update', 'DatakursusController@update')->name('updateDatakursus');
     Route::delete('/{id}', 'DatakursusController@destroy');
+    Route::put('/{id}', 'DatakursusController@update');
 });
