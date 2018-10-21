@@ -71,7 +71,21 @@ class DatakursusController extends Controller
      * @return Response
      */
     public function update(Request $request)
-    {
+    {   
+          $token = session()->get('token');
+          $client = new Client();
+          $kam = json_decode($token);
+          $headers = ['Authorization' => $kam->accessToken];
+          $send = $client->request('PUT',env('API_URL').'/datakursus/'.$request->idKursus,
+            [
+            'headers' => [
+                'Authorization' => $headers
+            ],
+            'form_params' => [
+                'namakursus' => $request->namaKursus,
+            ]
+          ]);
+           return view('datakursus::edit');
     }
 
     /**
