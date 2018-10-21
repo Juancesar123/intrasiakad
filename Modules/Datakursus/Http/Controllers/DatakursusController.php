@@ -17,7 +17,16 @@ class DatakursusController extends Controller
      */
     public function index()
     {
-        return view('datakursus::index');
+          $token = session()->get('token');
+          $client = new Client();
+          $token_decode = json_decode($token)->accessToken;
+          $get_data=$client->request('GET','http://localhost:3030/datakursus', [
+                 'headers' => [
+                          'Authorization'     => $token_decode
+                        ]
+              ]);
+          $datakursus = json_decode($get_data->getBody()->getContents());
+        return view('datakursus::index',compact('datakursus'));
     }
 
     /**
