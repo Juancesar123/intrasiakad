@@ -39,7 +39,7 @@ class DataguruController extends Controller
       $token = session()->get('token');
       $client = new Client();
       $token_decode = json_decode($token)->accessToken;
-      $create_dataguru = $client->request('POST','http://localhost:3030/datapengajar', [
+      $create_dataguru = $client->request('POST',env('API_URL').'/datapengajar/', [
              'headers' => [
                       'Authorization'     => $token_decode
                     ],
