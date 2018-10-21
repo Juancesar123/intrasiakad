@@ -1,16 +1,20 @@
 @extends('datakursus::layouts.master')
 
 @section('content')
-    <h1>Hello World</h1>
+<table border="1">
+<tr>
+    <th>No</th>
+    <th>Name Kursus</th>
+    <th>Created Date</th>
 
-    <p>
-        This view is loaded from module: {!! config('datakursus.name') !!}
-    </p>
-    <form action="/datakursus/1" method="post" accept-charset="utf-8">
-    	@csrf
-    	@method('put')
-    	<input type="text" name="namakursus">
-    	{{-- <input type="number" name="id"> --}}
-    	<button type="submit">sub</button>
-    </form>
+</tr>
+@php $no=1 @endphp
+@foreach($datakursus as $data)
+<tr>
+    <td>{{ $no++ }}</td>
+    <td>{{ $data->namakursus }}</td>
+    <td>{{ $data->created_at }}</td>
+</tr>
+@endforeach
+</table>
 @stop
