@@ -9,7 +9,6 @@
 
 </tr>
 @php $no=1 @endphp
-{{ $no++ }}
 @foreach($datakursus as $data)
 <tr>
     <td>{{ $no++ }}</td>
