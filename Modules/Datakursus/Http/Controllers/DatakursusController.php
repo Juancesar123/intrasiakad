@@ -5,6 +5,9 @@ namespace Modules\Datakursus\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 class DatakursusController extends Controller
 {
@@ -59,7 +62,22 @@ class DatakursusController extends Controller
      * @return Response
      */
     public function update(Request $request)
-    {
+    {   
+          $token = session()->get('token');
+          $client = new Client();
+          $kam = json_decode($token);
+          $headers = ['Authorization' => $kam->accessToken];
+          $send = $client->request('PUT',env('API_URL').'/datakursus/1',
+            [
+            'headers' => [
+                'Authorization' => $headers
+            ],
+            'form_params' => [
+                'namakursus' => 'DAT',
+            ]
+          ]);
+           $data = $send->getBody()->getContents();
+           dd($data);
     }
 
     /**
