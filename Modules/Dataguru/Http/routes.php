@@ -1,6 +1,7 @@
 <?php
 
-Route::group(['middleware' => 'web', 'prefix' => 'dataguru', 'namespace' => 'Modules\Dataguru\Http\Controllers'], function()
+Route::group(['middleware' => ['web','token'], 'prefix' => 'dataguru', 'namespace' => 'Modules\Dataguru\Http\Controllers'], function()
 {
-    Route::get('/', 'DataguruController@index');
+    Route::get('/', 'DataguruController@index')->name('indexDataguru');
+    Route::put('/update/{id}', 'DataguruController@update');
 });
