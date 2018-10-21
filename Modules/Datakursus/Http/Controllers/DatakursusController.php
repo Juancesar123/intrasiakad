@@ -47,18 +47,17 @@ class DatakursusController extends Controller
     {
         $token = session()->get('token');
         $client = new Client();
-        $kam = json_decode($token);
-        $headers = ['Authorization' => $kam->accessToken];
-        $send = $client->request('POST',env('API_URL').'/datakursus',
+        $token_decode = json_decode($token)->accessToken;
+        $send = $client->request('POST',env('API_URL').'/datakursus/',
           [
           'headers' => [
-              'Authorization' => $headers
+              'Authorization' => $token_decode
           ],
           'form_params' => [
-              'namakursus' => $request->namaKursus,
+              'namakursus' => 'percobaan',
           ]
         ]);
-        return redirect()->route('indexDatakursus');
+            return redirect()->route('indexDatakursus');
     }
 
     /**
