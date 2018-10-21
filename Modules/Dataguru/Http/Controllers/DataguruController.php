@@ -5,6 +5,9 @@ namespace Modules\Dataguru\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 class DataguruController extends Controller
 {
@@ -33,6 +36,22 @@ class DataguruController extends Controller
      */
     public function store(Request $request)
     {
+      $token = session()->get('token');
+      $client = new Client();
+      $token_decode = json_decode($token)->accessToken;
+      $create_dataguru = $client->request('POST','http://localhost:3030/datapengajar', [
+             'headers' => [
+                      'Authorization'     => $token_decode
+                    ],
+              'form_params' => [
+                'namapengajar' => $request->namapengajar,
+                'alamat'       => $request->alamat,
+                'email'        => $request->email,
+                'nomortelepon' => $request->nomortelepon,
+                'gambar'       => $request->gambar,
+              ]
+          ]);
+          return redirect()->back();
     }
 
     /**
