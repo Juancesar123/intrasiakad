@@ -20,7 +20,7 @@ class DatakursusController extends Controller
           $token = session()->get('token');
           $client = new Client();
           $token_decode = json_decode($token)->accessToken;
-          $get_data=$client->request('GET','http://localhost:3030/datakursus', [
+          $get_data=$client->request('GET',env('API_URL').'/datakursus/', [
                  'headers' => [
                           'Authorization'     => $token_decode
                         ]
@@ -71,7 +71,7 @@ class DatakursusController extends Controller
      * @return Response
      */
     public function update(Request $request)
-    {   
+    {
           $token = session()->get('token');
           $client = new Client();
           $kam = json_decode($token);
