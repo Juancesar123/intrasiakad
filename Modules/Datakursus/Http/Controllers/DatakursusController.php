@@ -76,17 +76,16 @@ class DatakursusController extends Controller
           $client = new Client();
           $kam = json_decode($token);
           $headers = ['Authorization' => $kam->accessToken];
-          $send = $client->request('PUT',env('API_URL').'/datakursus/1',
+          $send = $client->request('PUT',env('API_URL').'/datakursus/'.$request->idKursus,
             [
             'headers' => [
                 'Authorization' => $headers
             ],
             'form_params' => [
-                'namakursus' => 'DAT',
+                'namakursus' => $request->namaKursus,
             ]
           ]);
-           $data = $send->getBody()->getContents();
-           dd($data);
+           return view('datakursus::edit');
     }
 
     /**
