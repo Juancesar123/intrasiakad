@@ -46,16 +46,16 @@ class DatakursusController extends Controller
     {
       $client = new Client();
       $value = session('token');
-      $headers = ['Authorize' => 'Barier '.$value];
-      $res = $client->post(env('API_URL').'/datakursus', $headers,[
+      $token_decode = json_decode($value)->accessToken;
+      $res = $client->post(env('API_URL').'/datakursus',[
+        'headers' => [
+            'Authorization'     => $token_decode
+        ],
           'form_params' => [
-             'username' => 'abc',
-             'password' => '123',
+            'namakursus' => $request->namaKursus
          ]
       ]);
-      $data = $res->getContents();
-      $request->session()->put('token', $data);
-      return redirect('home');
+      return redirect('datakursus');
     }
 
     /**
@@ -71,9 +71,19 @@ class DatakursusController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('datakursus::edit');
+        $token = session()->get('token');
+        $client = new Client();
+        $token_decode = json_decode($token)->accessToken;
+        $get_data=$client->request('GET',env('API_URL').'/datakursus/'.$id, [
+                'headers' => [
+                        'Authorization'     => $token_decode
+                    ]
+            ]);
+        $datakursus = json_decode($get_data->getBody()->getContents());
+        //var_dump($datakursus);
+        return view('datakursus::edit',['datakursus' => $datakursus]);
     }
 
     /**
@@ -81,22 +91,22 @@ class DatakursusController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
           $token = session()->get('token');
           $client = new Client();
           $kam = json_decode($token);
           $headers = ['Authorization' => $kam->accessToken];
-          $send = $client->request('PUT',env('API_URL').'/datakursus/'.$request->idKursus,
+          $send = $client->request('PATCH',env('API_URL').'/datakursus/'.$id,
             [
             'headers' => [
                 'Authorization' => $headers
             ],
             'form_params' => [
-                'namakursus' => $request->namaKursus,
+                'namakursus' => $request->namakursus,
             ]
           ]);
-           return view('datakursus::edit');
+          return redirect('datakursus');
     }
 
     /**
@@ -109,11 +119,12 @@ class DatakursusController extends Controller
         $client     = new Client();
         $token      = json_decode($get_token);
         $headers    = $token->accessToken;
-        $client->request('DELETE', 'localhost:3030/datakursus/'.$id, [
+        $client->request('DELETE', env('API_URL').'/datakursus/'.$id, [
             'headers' => [
                 'Authorization' => $headers
             ]
         ]);
+        return redirect('datakursus');
     }
 
     public function addform()
