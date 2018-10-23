@@ -1,0 +1,16 @@
+{
+    "name": "Datakursus",
+    "alias": "datakursus",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Datakursus\\Providers\\DatakursusServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
