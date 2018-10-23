@@ -36,7 +36,7 @@
            
           </div>
           <div class="box-footer">
-            <a href="{{ route('Addform') }}" type="button" class="btn btn-primary pull-left" style="margin-right: 5px;">
+            <a href="addform" type="button" class="btn btn-primary pull-left" style="margin-right: 5px;">
               <i class="fa fa-reply"></i> Kembali
             </a>
             {{ Form::submit('Simpan',['class'=>'btn btn-success pull-right']) }}

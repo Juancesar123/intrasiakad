@@ -7,7 +7,6 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Client;
 
 class DatakursusController extends Controller
 {
