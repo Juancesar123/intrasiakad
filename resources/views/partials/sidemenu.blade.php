@@ -42,7 +42,7 @@
            </a>
          </li>
            <li>
-            <a href="{{route('Addform')}}">
+            <a href="{{ route('indexDatakursus') }}">
               <i class="fa fa-book"></i> <span>Data Kursus</span>
             </a>
           </li>

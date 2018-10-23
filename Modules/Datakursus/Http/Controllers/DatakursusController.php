@@ -5,6 +5,9 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 class DatakursusController extends Controller
 {
@@ -14,7 +17,16 @@ class DatakursusController extends Controller
      */
     public function index()
     {
-        return view('datakursus::index');
+          $token = session()->get('token');
+          $client = new Client();
+          $token_decode = json_decode($token)->accessToken;
+          $get_data=$client->request('GET',env('API_URL').'/datakursus/', [
+                 'headers' => [
+                          'Authorization'     => $token_decode
+                        ]
+              ]);
+          $datakursus = json_decode($get_data->getBody()->getContents());
+        return view('datakursus::index',compact('datakursus'));
     }
 
     /**
@@ -72,15 +84,37 @@ class DatakursusController extends Controller
      */
     public function update(Request $request)
     {
+          $token = session()->get('token');
+          $client = new Client();
+          $kam = json_decode($token);
+          $headers = ['Authorization' => $kam->accessToken];
+          $send = $client->request('PUT',env('API_URL').'/datakursus/'.$request->idKursus,
+            [
+            'headers' => [
+                'Authorization' => $headers
+            ],
+            'form_params' => [
+                'namakursus' => $request->namaKursus,
+            ]
+          ]);
+           return view('datakursus::edit');
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
-      //
+        $get_token  = session()->get('token');
+        $client     = new Client();
+        $token      = json_decode($get_token);
+        $headers    = $token->accessToken;
+        $client->request('DELETE', 'localhost:3030/datakursus/'.$id, [
+            'headers' => [
+                'Authorization' => $headers
+            ]
+        ]);
     }
 
     public function addform()
