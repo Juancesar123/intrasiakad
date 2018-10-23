@@ -54,7 +54,7 @@ class DatakursusController extends Controller
               'Authorization' => $token_decode
           ],
           'form_params' => [
-              'namakursus' => 'percobaan',
+              'namakursus' => $request->namakursus
           ]
         ]);
             return redirect()->route('indexDatakursus');
