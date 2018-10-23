@@ -1,6 +1,9 @@
 <?php
 
-Route::group(['middleware' => 'web', 'prefix' => 'datakursus', 'namespace' => 'Modules\Datakursus\Http\Controllers'], function()
+Route::group(['middleware' => ['web','token'], 'prefix' => 'datakursus', 'namespace' => 'Modules\Datakursus\Http\Controllers'], function()
 {
-    Route::get('/', 'DatakursusController@index');
+    Route::get('/', 'DatakursusController@index')->name('indexDatakursus');
+    Route::get('/edit', 'DatakursusController@edit');
+    Route::put('/update', 'DatakursusController@update')->name('updateDatakursus');
+    Route::delete('/{id}', 'DatakursusController@destroy');
 });

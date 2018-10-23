@@ -101,7 +101,7 @@ class LoginController extends Controller
       ]);
 
         $client = new Client;
-        $res = $client->request('POST',env('API_URL').'/users',[
+        $res = $client->request('POST',env('API_URL').'/users', [
            'form_params' => [
              'email' => $request->email,
              'password' => $request->password,
