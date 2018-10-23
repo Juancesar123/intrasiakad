@@ -10,10 +10,11 @@ class DataguruController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @return Response
+    //  * @return Response
      */
     public function index()
     {
+        
         return view('dataguru::index');
     }
 
@@ -23,7 +24,8 @@ class DataguruController extends Controller
      */
     public function create()
     {
-        return view('dataguru::create');
+       
+        return redirect()->route('Dataguru::index');
     }
 
     /**
@@ -69,4 +71,5 @@ class DataguruController extends Controller
     public function destroy()
     {
     }
+
 }

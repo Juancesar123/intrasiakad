@@ -1,7 +1,7 @@
 <?php
 
 namespace Modules\Datakursus\Http\Controllers;
-
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -33,6 +33,18 @@ class DatakursusController extends Controller
      */
     public function store(Request $request)
     {
+      $client = new Client();
+      $value = session('token');
+      $headers = ['Authorize' => 'Barier '.$value];
+      $res = $client->post(env('API_URL').'/datakursus', $headers,[
+          'form_params' => [
+             'username' => 'abc',
+             'password' => '123',
+         ]
+      ]);
+      $data = $res->getContents();
+      $request->session()->put('token', $data);
+      return redirect('home');
     }
 
     /**
@@ -68,5 +80,12 @@ class DatakursusController extends Controller
      */
     public function destroy()
     {
+      //
     }
+
+    public function addform()
+    {
+        return view('datakursus::addform');
+    }
+
 }

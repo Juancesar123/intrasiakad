@@ -1,9 +1,26 @@
-@extends('datakursus::layouts.master')
+@extends('app.layouts')
 
 @section('content')
-    <h1>Hello World</h1>
+<section class="content-header">
+  <h1>
+    Data Kursus
+    <small>Menu</small>
+  </h1>
+</section>
 
-    <p>
-        This view is loaded from module: {!! config('datakursus.name') !!}
-    </p>
-@stop
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Tabel Data Siswa</h3>
+          <a href="{{ route('Addform') }}" class="btn btn-app pull-right">
+            <i class="fa fa-plus"></i> Tambah
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+@endsection
