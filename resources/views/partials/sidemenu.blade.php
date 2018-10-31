@@ -33,7 +33,7 @@
        </li>
            <li>
             <a href="">
-              <i class="fa fa-user"></i> <span>Data Pengajar</span>
+              <i class="fa fa-user"></i> <span>Data Guru</span>
             </a>
           </li>
           <li>
@@ -42,7 +42,7 @@
            </a>
          </li>
            <li>
-            <a href="">
+            <a href="{{ route('indexDatakursus') }}">
               <i class="fa fa-book"></i> <span>Data Kursus</span>
             </a>
           </li>
