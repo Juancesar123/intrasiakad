@@ -10,11 +10,10 @@ class DataguruController extends Controller
 {
     /**
      * Display a listing of the resource.
-    //  * @return Response
+     * @return Response
      */
     public function index()
     {
-        
         return view('dataguru::index');
     }
 
@@ -24,8 +23,7 @@ class DataguruController extends Controller
      */
     public function create()
     {
-       
-        return redirect()->route('Dataguru::index');
+        return view('dataguru::create');
     }
 
     /**
@@ -62,14 +60,30 @@ class DataguruController extends Controller
      */
     public function update(Request $request)
     {
+        $token = session()->get('token');
+        $client = new Client();
+        $kam = json_decode($token);
+        $headers = ['Authorization' => $kam->accessToken];
+        $send = $client->request('PATCH',env('API_URL').'/dataguru/'.$id,
+          [
+          'headers' => [
+              'Authorization' => $headers
+          ],
+          'form_params' => [
+              'namaguru' => $request->namaguru,
+          ]
+        ]);
+        return redirect('dataguru');
+         
     }
 
-    /**
+    /**     
      * Remove the specified resource from storage.
      * @return Response
      */
     public function destroy()
     {
+
     }
 
 }
