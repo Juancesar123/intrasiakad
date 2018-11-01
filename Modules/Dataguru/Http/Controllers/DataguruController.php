@@ -50,8 +50,11 @@ class DataguruController extends Controller
      */
     public function edit()
     {
-        return view('dataguru::edit');
+       
+        return view('dataguru::edit',['dataguru' => $datakursus]);
+                
     }
+            
 
     /**
      * Update the specified resource in storage.
