@@ -1,12 +1,12 @@
 @extends('app.layouts')
-@section('content header','Data Jadwal Kursus')
+@section('content header','Data Jadwal')
 @section('content')
     <div class="row">
         <div class="col-lg-12">
         <div class="box">
         <div class="box-header">
               <h3 class="box-title">Data Jadwal Kursus</h3>
-              <a class="btn btn-primary pull-right" href="{{route('addform')}}" ><i class="fa fa-plus"></i> Tambah Jadwal Kursus</a>
+              <a class="btn btn-primary pull-right" href="{{route('jadwaladd')}}" ><i class="fa fa-plus"></i> Tambah Jadwal Kursus</a>
         </div>
         <div class="box-body">
    <table id="example2" class="table table-bordered table-hover">
