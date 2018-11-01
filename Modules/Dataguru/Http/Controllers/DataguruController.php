@@ -25,7 +25,7 @@ class DataguruController extends Controller
     public function create()
     {
        
-        return redirect()->route('Dataguru::index');
+        return view('dataguru::layouts.addform');
     }
 
     /**
