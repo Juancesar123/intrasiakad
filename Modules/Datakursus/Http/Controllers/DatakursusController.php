@@ -106,7 +106,7 @@ class DatakursusController extends Controller
                 'namakursus' => $request->namakursus,
             ]
           ]);
-          return redirect('datakursus');
+          return redirect('jadwalkursus');
     }
 
     /**
