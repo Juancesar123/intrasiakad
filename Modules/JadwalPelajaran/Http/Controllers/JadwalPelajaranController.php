@@ -51,9 +51,33 @@ class JadwalPelajaranController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('jadwalpelajaran::edit');
+      $token = session()->get('token');
+      $client = new Client();
+      $token_decode = json_decode($token)->accessToken;
+      $get_data = $client->request('GET',env('API_URL').'/jadwalkursus/'.$id, [
+        'headers' => [ 'Authorization' => $token_decode ]
+      ]);
+      $get_data_teacher = $client->request('GET',env('API_URL').'/datapengajar/',[
+        'headers' => [ 'Authorization'=> $token_decode  ]
+      ]);
+      $get_Data_kursus = $client->request('GET',env('API_URL').'/datakursus/', [
+        'headers' => [ 'Authorization' => $token_decode ]
+      ]);
+      $dataJadwalPlajaran = json_decode($get_data->getBody()->getContents());
+      $dataTeacher = json_decode($get_data_teacher->getBody()->getContents());
+      $datakursus = json_decode($get_Data_kursus->getBody()->getContents());
+      $teacher = [];
+      $kursus = [];
+      foreach ($dataTeacher as $key) {
+        $teacher[$key->id] =$key->namapengajar;
+      }
+      foreach ($datakursus as $key) {
+        $kursus[$key->id] = $key->namakursus;
+      }
+      // dd($dataJadwalPlajaran);
+        return view('jadwalpelajaran::edit',compact('dataJadwalPlajaran','teacher','kursus'));
     }
 
     /**
@@ -62,7 +86,7 @@ class JadwalPelajaranController extends Controller
      * @return Response
      */
     public function update(Request $request)
-    {
+    {dd($request);
     }
 
     /**
