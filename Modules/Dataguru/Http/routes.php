@@ -2,8 +2,8 @@
 
 Route::group(['middleware' => ['web','token'], 'prefix' => 'dataguru', 'namespace' => 'Modules\Dataguru\Http\Controllers'], function()
 {
-    Route::get('/', 'DataguruController@index');
-    Route::get('/createdataguru', 'DataguruController@create');
+    Route::get('/', 'DataguruController@index')->name('indexDataguru');
+    Route::get('/createdataguru', 'DataguruController@create')->name('tambahguru');
     Route::get('/edit/{id}', 'DataguruController@edit')->name('editform');
     Route::get('/delete/{id}', 'DataGuruController@destroy');
 });
