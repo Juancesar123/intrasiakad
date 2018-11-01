@@ -65,6 +65,11 @@ class JadwalPelajaranController extends Controller
     {
     }
 
+    public function addform()
+    {
+        return view('jadwalpelajaran::addform');
+    }
+
     /**
      * Remove the specified resource from storage.
      * @return Response
