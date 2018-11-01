@@ -23,7 +23,8 @@ class DataguruController extends Controller
      */
     public function create()
     {
-        return view('dataguru::create');
+       
+        return view('dataguru::layouts.addform');
     }
 
     /**
