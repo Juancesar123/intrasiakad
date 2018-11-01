@@ -76,7 +76,6 @@ class JadwalPelajaranController extends Controller
       foreach ($datakursus as $key) {
         $kursus[$key->id] = $key->namakursus;
       }
-      // dd($dataJadwalPlajaran);
         return view('jadwalpelajaran::edit',compact('dataJadwalPlajaran','teacher','kursus'));
     }
 
@@ -86,7 +85,29 @@ class JadwalPelajaranController extends Controller
      * @return Response
      */
     public function update(Request $request)
-    {dd($request);
+    {
+          $token = session()->get('token');
+          $client = new Client();
+          $token_decode = json_decode($token);
+          $headers = ['Authorization' => $token_decode->accessToken];
+          $send = $client->request('PATCH',env('API_URL').'/jadwalkursus/'.$request->id,
+            [
+            'headers' => [
+                'Authorization' => $headers
+            ],
+            'form_params' => [
+                'hari'        => $request->hari,
+                'jammulai'    => $request->jammulai,
+                'jamselesai'  => $request->jamselesai,
+                'idkursus'    => $request->namakursus,
+                'idpengajar'  => $request->pengajar,
+            ]
+          ]);
+          return redirect('jadwalkursus');
+   /**
+     * Remove the specified resource from storage.
+     * @return Response
+     */
     }
 
     public function addform()
@@ -105,9 +126,9 @@ class JadwalPelajaranController extends Controller
         $token      = json_decode($get_token);
         $headers    = $token->accessToken;
         $client->request('DELETE', 'localhost:3030/jadwalkursus/'.$id, [
-                'headers' => [
-                'Authorization' => $headers
-                ]
-                ]);
+            'headers' => [
+            'Authorization' => $headers
+           ]
+        ]);
     }
 }
