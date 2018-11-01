@@ -6,6 +6,7 @@
         <div class="box">
         <div class="box-header">
               <h3 class="box-title">Data Tabel Kursus</h3>
+              <a class="btn btn-primary pull-right" href="{{route('addform')}}" ><i class="fa fa-plus"></i> Tambah Kursus</a>
         </div>
         <div class="box-body">
    <table id="example2" class="table table-bordered table-hover">
@@ -22,8 +23,8 @@
         <td>{{ $data->namakursus }}</td>
         <td>{{ $data->createdAt }}</td>
         <td>
-            <button> Update </button>
-            <button> Hapus </button>
+            <a href="datakursus/edit/{{$data->id}}" class="btn btn-success"><i class="fa fa-edit"></i> Update </a>
+            <a href="datakursus/delete/{{$data->id}}" class="btn btn-danger"><i class="fa fa-trash"></i> Delete </a>
          </td>
     </tr>
     @endforeach

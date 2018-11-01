@@ -1,13 +1,12 @@
 <?php
 
 namespace Modules\Datakursus\Http\Controllers;
-
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Client;
 
 class DatakursusController extends Controller
 {
@@ -20,7 +19,7 @@ class DatakursusController extends Controller
           $token = session()->get('token');
           $client = new Client();
           $token_decode = json_decode($token)->accessToken;
-          $get_data=$client->request('GET','http://localhost:3030/datakursus', [
+          $get_data=$client->request('GET',env('API_URL').'/datakursus/', [
                  'headers' => [
                           'Authorization'     => $token_decode
                         ]
@@ -45,19 +44,18 @@ class DatakursusController extends Controller
      */
     public function store(Request $request)
     {
-        $token = session()->get('token');
-        $client = new Client();
-        $token_decode = json_decode($token)->accessToken;
-        $send = $client->request('POST',env('API_URL').'/datakursus/',
-          [
-          'headers' => [
-              'Authorization' => $token_decode
-          ],
+      $client = new Client();
+      $value = session('token');
+      $token_decode = json_decode($value)->accessToken;
+      $res = $client->post(env('API_URL').'/datakursus',[
+        'headers' => [
+            'Authorization'     => $token_decode
+        ],
           'form_params' => [
-              'namakursus' => $request->namakursus
-          ]
-        ]);
-            return redirect()->route('indexDatakursus');
+            'namakursus' => $request->namaKursus
+         ]
+      ]);
+      return redirect('datakursus');
     }
 
     /**
@@ -73,9 +71,19 @@ class DatakursusController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('datakursus::edit');
+        $token = session()->get('token');
+        $client = new Client();
+        $token_decode = json_decode($token)->accessToken;
+        $get_data=$client->request('GET',env('API_URL').'/datakursus/'.$id, [
+                'headers' => [
+                        'Authorization'     => $token_decode
+                    ]
+            ]);
+        $datakursus = json_decode($get_data->getBody()->getContents());
+        //var_dump($datakursus);
+        return view('datakursus::edit',['datakursus' => $datakursus]);
     }
 
     /**
@@ -83,22 +91,22 @@ class DatakursusController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
-    {   
+    public function update(Request $request,$id)
+    {
           $token = session()->get('token');
           $client = new Client();
           $kam = json_decode($token);
           $headers = ['Authorization' => $kam->accessToken];
-          $send = $client->request('PUT',env('API_URL').'/datakursus/'.$request->idKursus,
+          $send = $client->request('PATCH',env('API_URL').'/datakursus/'.$id,
             [
             'headers' => [
                 'Authorization' => $headers
             ],
             'form_params' => [
-                'namakursus' => $request->namaKursus,
+                'namakursus' => $request->namakursus,
             ]
           ]);
-           return view('datakursus::edit');
+          return redirect('jadwalkursus');
     }
 
     /**
@@ -111,10 +119,17 @@ class DatakursusController extends Controller
         $client     = new Client();
         $token      = json_decode($get_token);
         $headers    = $token->accessToken;
-        $client->request('DELETE', 'localhost:3030/datakursus/'.$id, [
+        $client->request('DELETE', env('API_URL').'/datakursus/'.$id, [
             'headers' => [
                 'Authorization' => $headers
             ]
         ]);
+        return redirect('datakursus');
     }
+
+    public function addform()
+    {
+        return view('datakursus::addform');
+    }
+
 }

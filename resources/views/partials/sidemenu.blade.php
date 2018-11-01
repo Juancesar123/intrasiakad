@@ -47,7 +47,7 @@
             </a>
           </li>
           <li>
-           <a href="">
+           <a href="{{ route('jadwalkursus') }}">
              <i class="fa fa-th"></i> <span>Data Jadwal</span>
            </a>
          </li>
