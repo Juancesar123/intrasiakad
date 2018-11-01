@@ -6,7 +6,7 @@
       <div class="box">
         <div class="box-header">
           <h3 class="box-title">Data Jadwal Kursus</h3>
-          <a href="{{route('indexJadwalPelajaran')}}" class="btn btn-app pull-right">
+          <a href="{{route('jadwalindex')}}" class="btn btn-app pull-right">
             <i class="fa fa-table"></i> Data
           </a>
           {{ Form::open(['route'=>'saveCoursedata','method'=>'POST']) }}
@@ -73,7 +73,7 @@
   </div>
 </div>
 <div class="box-footer">
-    <a href="{{route('indexJadwalPelajaran')}}" type="button" class="btn btn-primary pull-left" style="margin-right: 5px;">
+    <a href="{{route('jadwalindex')}}" type="button" class="btn btn-primary pull-left" style="margin-right: 5px;">
       <i class="fa fa-reply"></i> Kembali
     </a>
       {{ Form::submit('Simpan',['class'=>'btn btn-success pull-right']) }}
