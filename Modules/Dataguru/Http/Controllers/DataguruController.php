@@ -5,6 +5,10 @@ namespace Modules\Dataguru\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
+
 
 class DataguruController extends Controller
 {
@@ -64,8 +68,25 @@ class DataguruController extends Controller
      */
     public function update(Request $request)
     {
- 
-         
+        $sessionToken = session()->get('token');
+        $id = $request->id;
+        $client = new Client();
+        $send = $client->put(env('API_URL').'/datapengajar/'.$id,[
+           'headers' => [
+                'Authorization' => $sessionToken
+            ],
+
+            'form_params' => [
+              'namapengajar' => $request->namapengajar,
+              'alamat' => $request->alamat,
+              'email' => $request->email,
+              'nomortelepon' => $request->nomortelepon,
+              'gambar' => "",
+          ]
+      ]);
+
+    return redirect()->route('indexDataguru');
+    
     }
 
     /**     
