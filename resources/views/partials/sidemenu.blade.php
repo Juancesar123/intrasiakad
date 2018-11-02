@@ -32,8 +32,8 @@
          </a>
        </li>
            <li>
-            <a href="">
-              <i class="fa fa-user"></i> <span>Data Guru</span>
+            <a href="{{ route('indexDataguru') }}">
+              <i class="fa fa-user"></i> <span>Data Pengajar</span>
             </a>
           </li>
           <li>

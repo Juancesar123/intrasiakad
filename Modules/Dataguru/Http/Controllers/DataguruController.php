@@ -5,6 +5,10 @@ namespace Modules\Dataguru\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
+
 
 class DataguruController extends Controller
 {
@@ -14,7 +18,17 @@ class DataguruController extends Controller
      */
     public function index()
     {
-        return view('dataguru::index');
+        $token = session()->get('token');
+        $client = new Client();
+        $token_decode = json_decode($token)->accessToken;
+        $get_data=$client->request('GET','http://localhost:3030/datapengajar', [
+               'headers' => [
+                        'Authorization'     => $token_decode
+                      ]
+            ]);
+        $dataguru = json_decode($get_data->getBody()->getContents());
+        // dd($dataguru);
+        return view('dataguru::index', compact('dataguru'));
     }
 
     /**
@@ -64,17 +78,43 @@ class DataguruController extends Controller
      */
     public function update(Request $request)
     {
- 
-         
+        $sessionToken = session()->get('token');
+        $id = $request->id;
+        $client = new Client();
+        $send = $client->put(env('API_URL').'/datapengajar/'.$id,[
+           'headers' => [
+                'Authorization' => $sessionToken
+            ],
+
+            'form_params' => [
+              'namapengajar' => $request->namapengajar,
+              'alamat' => $request->alamat,
+              'email' => $request->email,
+              'nomortelepon' => $request->nomortelepon,
+              'gambar' => "",
+          ]
+      ]);
+
+    return redirect()->route('indexDataguru');
+    
     }
 
     /**     
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
-
+      $get_token  = session()->get('token');
+      $client     = new Client();
+      $token      = json_decode($get_token);
+      $headers    = $token->accessToken;
+      $client->request('DELETE', env('API_URL').'/dataguru/'.$id, [
+          'headers' => [
+              'Authorization' => $headers
+          ]
+      ]);
+      return redirect('dataguru');
     }
 
 }

@@ -38,8 +38,6 @@ class LoginController extends Controller
     public function store(Request $request)
     {
      $client = new Client();
-      // $headers = ['Authorization' => 'Bearer '];
-      // dd($headers);
       $send = $client->post(env('API_URL').'/authentication',[
         'form_params' => [
           'strategy' => 'local',
@@ -48,7 +46,8 @@ class LoginController extends Controller
         ]
       ]);
       $data = $send->getBody()->getContents();
-      $request->session()->put('token', $data);
+      $token = json_decode($data);
+      $request->session()->put('token', $token->accessToken);
       return redirect('homepage');
     }
 
@@ -107,9 +106,6 @@ class LoginController extends Controller
              'password' => $request->password,
            ]
          ]);
-
-       // $data = $res->getBody()->getContents();
-       // $request->session()->put('token', $data);
        return redirect()->route('formLogin');
     }
 
