@@ -45,6 +45,22 @@ class JadwalPelajaranController extends Controller
      */
     public function store(Request $request)
     {
+      $client = new Client();
+      $value = session('token');
+      $token_decode = json_decode($value)->accessToken;
+      $res = $client->post(env('API_URL').'/jadwalkursus',[
+        'headers' => [
+            'Authorization'     => $token_decode
+        ],
+          'form_params' => [
+            'hari'        => $request->Hari
+            'jammulai'    => $request->JamMulai
+            'jamselesai'  => $request->jamselesai
+            'idkursus'    => $request->IdKursus
+            'idpengajar'  => $request->idpengajar
+         ]
+      ]);
+      return redirect('datakursus');
     }
 
     /**
