@@ -32,7 +32,7 @@
          </a>
        </li>
            <li>
-            <a href="">
+            <a href="{{ route('indexDataguru') }}">
               <i class="fa fa-user"></i> <span>Data Pengajar</span>
             </a>
           </li>
@@ -42,12 +42,12 @@
            </a>
          </li>
            <li>
-            <a href="">
+            <a href="{{ route('indexDatakursus') }}">
               <i class="fa fa-book"></i> <span>Data Kursus</span>
             </a>
           </li>
           <li>
-           <a href="">
+           <a href="{{ route('jadwalkursus') }}">
              <i class="fa fa-th"></i> <span>Data Jadwal</span>
            </a>
          </li>

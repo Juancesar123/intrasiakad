@@ -19,6 +19,7 @@ class DatakursusServiceProvider extends ServiceProvider
      *
      * @return void
      */
+     
     public function boot()
     {
         $this->registerTranslations();
@@ -91,7 +92,7 @@ class DatakursusServiceProvider extends ServiceProvider
 
     /**
      * Register an additional directory of factories.
-     * 
+     *
      * @return void
      */
     public function registerFactories()
@@ -110,4 +111,5 @@ class DatakursusServiceProvider extends ServiceProvider
     {
         return [];
     }
+
 }
