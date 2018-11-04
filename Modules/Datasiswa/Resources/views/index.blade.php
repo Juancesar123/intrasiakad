@@ -21,12 +21,12 @@
     </tr>
     @foreach ($datasiswa as $index => $data)
     <tr>
-        <td>{{ $index }}</td>
-        <td>{{ @$data->namapeserta }}</td>
-        <td>{{ @$data->alamat }}</td>
-        <td>{{ @$data->email }}</td>
-        <td>{{ @$data->nomortelepon }}</td>
-        <td>{{ @$data->gambar }}</td>
+        <td>{{ $index+1 }}</td>
+        <td>{{ $data->namapeserta }}</td>
+        <td>{{ $data->alamat }}</td>
+        <td>{{ $data->email }}</td>
+        <td>{{ $data->nomortelepon }}</td>
+        <td>{{ $data->gambar }}</td>
         <td>
         <a href="{{url('datasiswa/edit/'.$data->id)}}" class="btn btn-success"><i class="fa fa-edit"></i> Update </a>
         <a href="{{url('datasiswa/delete/'.$data->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i> Delete </a>

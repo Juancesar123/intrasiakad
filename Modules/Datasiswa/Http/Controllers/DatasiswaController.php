@@ -19,10 +19,9 @@ class DatasiswaController extends Controller
     {
       $token = session()->get('token');
       $client = new Client();
-      $token_decode = json_decode($token)->accessToken;
         $get_datasiswa = $client->request('GET',env('API_URL').'/datapeserta/', [
           'headers' => [
-            'Authorization' => $token_decode,
+            'Authorization' => $token,
           ]
         ]);
       $datasiswa = json_decode($get_datasiswa->getBody()->getContents());
