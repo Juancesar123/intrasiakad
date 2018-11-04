@@ -5,6 +5,9 @@ namespace Modules\Datasiswa\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 class DatasiswaController extends Controller
 {
@@ -14,7 +17,15 @@ class DatasiswaController extends Controller
      */
     public function index()
     {
-        return view('datasiswa::index');
+      $token = session()->get('token');
+      $client = new Client();
+        $get_datasiswa = $client->request('GET',env('API_URL').'/datapeserta/', [
+          'headers' => [
+            'Authorization' => $token,
+          ]
+        ]);
+      $datasiswa = json_decode($get_datasiswa->getBody()->getContents());
+        return view('datasiswa::index',compact('datasiswa'));
     }
 
     /**
